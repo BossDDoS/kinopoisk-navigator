@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
 const FilmItem = ({ film }) => {
   return (
-    <div hoverable className={styles.movieCard}>
+    <div className={styles.movieCard}>
       <div>
         <img
           src={film.logo?.url}
@@ -11,7 +12,9 @@ const FilmItem = ({ film }) => {
         />
       </div>
       <div className={styles.movieCardInfo}>
-        <h2 className={styles.movieCardTitle}>{film.name}</h2>
+        <h2 className={styles.movieCardTitle}>
+          <Link to={film.id.toString()}>{film.name}</Link>
+        </h2>
         <p className={styles.movieCardYear}>Год: {film.year}</p>
         <p className={styles.movieCardLocation}>
           Страна: {film.countries[0].name}
