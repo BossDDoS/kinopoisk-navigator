@@ -1,0 +1,39 @@
+.movieCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  /* background-color: #f4f4f4; */
+  border-radius: 5px;
+}
+
+.movieCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.movieCardImage {
+  cursor: pointer;
+  max-width: 100px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.movieCardInfo {
+  flex-grow: 1;
+}
+
+.movieCardTitle {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.movieCardYear,
+.movieCardLocation {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
