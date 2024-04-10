@@ -6,6 +6,7 @@ const Main = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [limitPage, setLimitPage] = useState(10)
+  const [totalPages, setTotalPages] = useState(1)
   const [allFilms, setAllFilms] = useState([])
 
   useEffect(() => {
@@ -13,6 +14,7 @@ const Main = () => {
       try {
         const response = await getAllFilms(currentPage, limitPage)
         setAllFilms(response?.docs)
+        setTotalPages(response?.pages)
         setIsLoading(false)
       } catch (error) {
         console.log(error)
@@ -21,13 +23,20 @@ const Main = () => {
     getFilms()
   }, [currentPage, limitPage])
 
+  const onChange = (currentPage, pageSize) => {
+    setCurrentPage(currentPage)
+    setLimitPage(pageSize)
+  }
+
   return (
     <main>
-      {isLoading ? (
-        <div>There will be films soon</div>
-      ) : (
-        <FilmList allFilms={allFilms} />
-      )}
+      <FilmList
+        isLoading={isLoading}
+        currentPage={currentPage}
+        allFilms={allFilms}
+        totalPages={totalPages}
+        onChange={onChange}
+      />
     </main>
   )
 }
