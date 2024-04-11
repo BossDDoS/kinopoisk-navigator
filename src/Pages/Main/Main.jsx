@@ -1,6 +1,8 @@
 import FilmList from './../../components/FilmList/FilmList'
+import SelectFilm from '../../components/SelectFilm/SelectFilm'
 import { useEffect, useState } from 'react'
-import { getAllFilms } from './../../api/getFilms'
+import { getSearchedFilms } from './../../api/getSearchedFilms'
+import { useDebounce } from './../../helpers/hooks/useDebounce'
 
 const Main = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -8,11 +10,17 @@ const Main = () => {
   const [limitPage, setLimitPage] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
   const [allFilms, setAllFilms] = useState([])
+  const [keywords, setKeywords] = useState('')
+  const debounceKeywords = useDebounce(keywords, 1500)
 
   useEffect(() => {
     const getFilms = async () => {
       try {
-        const response = await getAllFilms(currentPage, limitPage)
+        const response = await getSearchedFilms(
+          currentPage,
+          limitPage,
+          debounceKeywords
+        )
         setAllFilms(response?.docs)
         setTotalPages(response?.pages)
         setIsLoading(false)
@@ -21,7 +29,7 @@ const Main = () => {
       }
     }
     getFilms()
-  }, [currentPage, limitPage])
+  }, [currentPage, limitPage, debounceKeywords])
 
   const onChange = (currentPage, pageSize) => {
     setCurrentPage(currentPage)
@@ -30,11 +38,16 @@ const Main = () => {
 
   return (
     <main>
+      <SelectFilm
+        keywords={keywords}
+        setKeywords={setKeywords}
+        setCurrentPage={setCurrentPage}
+      />
       <FilmList
         isLoading={isLoading}
         currentPage={currentPage}
-        allFilms={allFilms}
         totalPages={totalPages}
+        allFilms={allFilms}
         onChange={onChange}
       />
     </main>
