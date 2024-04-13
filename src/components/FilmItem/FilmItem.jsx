@@ -1,7 +1,8 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-const FilmItem = ({ film }) => {
+const FilmItem = React.memo(({ film }) => {
   return (
     <div className={styles.movieCard}>
       <div>
@@ -13,7 +14,9 @@ const FilmItem = ({ film }) => {
       </div>
       <div className={styles.movieCardInfo}>
         <h2 className={styles.movieCardTitle}>
-          <Link to={film.id.toString()}>{film?.name}</Link>
+          <Link to={film.id.toString()}>
+            {film?.name || film?.alternativeName}
+          </Link>
         </h2>
         <p className={styles.movieCardYear}>Год: {film?.year}</p>
         <p className={styles.movieCardLocation}>
@@ -22,6 +25,6 @@ const FilmItem = ({ film }) => {
       </div>
     </div>
   )
-}
+})
 
 export default FilmItem
