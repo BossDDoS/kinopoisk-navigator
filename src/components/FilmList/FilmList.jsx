@@ -8,12 +8,17 @@ const FilmList = ({
   onChange,
   isLoading,
 }) => {
+  if (isLoading) {
+    return <div>Скоро здесь что-то появится...</div>
+  }
+
   return (
     <div>
       <Pagination
-        defaultCurrent={currentPage}
+        current={currentPage}
         total={totalPages}
         onChange={onChange}
+        responsive
       />
       <List
         loading={isLoading}
@@ -21,7 +26,7 @@ const FilmList = ({
         size='large'
         dataSource={allFilms}
       >
-        {allFilms.map((film) => (
+        {allFilms?.map((film) => (
           <FilmItem film={film} key={film.id} />
         ))}
       </List>
