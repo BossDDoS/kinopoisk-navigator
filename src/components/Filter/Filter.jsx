@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { getCountries } from '../../api/getCountries'
 import styles from './styles.module.css'
 
-const Filter = ({ onFilterChange }) => {
+const Filter = ({ onFilterChange, isActive, setCurrentPage }) => {
   const [countries, setCountries] = useState([])
 
   const getCountriesSelect = useCallback(async () => {
@@ -29,14 +29,25 @@ const Filter = ({ onFilterChange }) => {
     const newCriterias = { ...criterias, [name]: value }
     setCriterias(newCriterias)
     onFilterChange(newCriterias)
+    setCurrentPage(1)
   }
 
   return (
-    <div className={styles.container}>
-      <h2>Поиск по фильтрам:</h2>
-      <div>
-        <label htmlFor='year'>Десятилетие:</label>
-        <select name='year' id='year' onChange={handleChange}>
+    <div
+      className={styles.container}
+      style={{ display: isActive ? 'block' : 'none' }}
+    >
+      <h2 className={styles.heading}>Поиск по фильтрам:</h2>
+      <div className={styles.filter}>
+        <label htmlFor='year' className={styles.label}>
+          Десятилетие:
+        </label>
+        <select
+          name='year'
+          id='year'
+          onChange={handleChange}
+          className={styles.select}
+        >
           <option value=''>Все года</option>
           <option value='2020-2050'>Современное кино</option>
           <option value='2010-2019'>2010-ые</option>
@@ -56,9 +67,16 @@ const Filter = ({ onFilterChange }) => {
           <option value='1874-1879'>1870-ые</option>
         </select>
       </div>
-      <div>
-        <label htmlFor='country'>Выберите страну:</label>
-        <select id='country' name='country' onChange={handleChange}>
+      <div className={styles.filter}>
+        <label htmlFor='country' className={styles.label}>
+          Выберите страну:
+        </label>
+        <select
+          id='country'
+          name='country'
+          onChange={handleChange}
+          className={styles.select}
+        >
           <option value=''>Все страны</option>
           {countries.map((country) => (
             <option value={country.name} key={country.name}>
@@ -67,9 +85,16 @@ const Filter = ({ onFilterChange }) => {
           ))}
         </select>
       </div>
-      <div>
-        <label htmlFor='ageRating'>Возрастной рейтинг:</label>
-        <select name='ageRating' id='ageRating' onChange={handleChange}>
+      <div className={styles.filter}>
+        <label htmlFor='ageRating' className={styles.label}>
+          Возрастной рейтинг:
+        </label>
+        <select
+          name='ageRating'
+          id='ageRating'
+          onChange={handleChange}
+          className={styles.select}
+        >
           <option value=''>Любой возраст</option>
           <option value='0-6'>Для детей</option>
           <option value='7-12'>Для подростков</option>

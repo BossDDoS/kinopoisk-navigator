@@ -3,9 +3,10 @@ import FilmItem from '../FilmItem/FilmItem'
 
 const FilmList = ({
   currentPage,
+  limitPage,
   totalPages,
   allFilms,
-  onChange,
+  handleChangePagination,
   isLoading,
 }) => {
   if (isLoading) {
@@ -15,9 +16,11 @@ const FilmList = ({
   return (
     <div>
       <Pagination
+        showSizeChanger
         current={currentPage}
         total={totalPages}
-        onChange={onChange}
+        pageSize={limitPage}
+        onChange={handleChangePagination}
         responsive
       />
       <List

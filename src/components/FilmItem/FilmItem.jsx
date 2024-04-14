@@ -7,7 +7,7 @@ const FilmItem = React.memo(({ film }) => {
     <div className={styles.movieCard}>
       <div>
         <img
-          src={film.logo?.url}
+          src={film.poster?.previewUrl}
           alt={film?.name}
           className={styles.movieCardImage}
         />
