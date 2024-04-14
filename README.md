@@ -44,12 +44,12 @@ npm run dev
 ### Примеры запросов и ответов
 
 Запрос всех фильмов
-![Screenshot1](https://github.com/BossDDoS/src/assetskinopoisk-navigator/blob/main/1.png)
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/src/assets/1.png)
 Запрос фильмов на 4 странице с 20-ю элементами
-![Screenshot1](https://github.com/BossDDoS/src/assetskinopoisk-navigator/blob/main/2.png)
+![Screenshot2](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/src/assets/2.png)
 Поиск по ключеовму слову
-![Screenshot1](https://github.com/BossDDoS/src/assetskinopoisk-navigator/blob/main/3.png)
+![Screenshot3](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/src/assets/3.png)
 Выдача фильмов по фильтрам
-![Screenshot1](https://github.com/BossDDoS/src/assetskinopoisk-navigator/blob/main/4.png)
+![Screenshot4](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/src/assets/4.png)
 Страница фильма
-![Screenshot1](https://github.com/BossDDoS/src/assetskinopoisk-navigator/blob/main/5.png)
+![Screenshot5](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/src/assets/5.png)
