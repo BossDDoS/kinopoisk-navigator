@@ -1,14 +1,15 @@
 import FilmList from './../../components/FilmList/FilmList'
 import Search from '../../components/Search/Search'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getFilms } from './../../api/getFilms'
 import { getSearchedFilms } from '../../api/getSearchedFilms'
-
+import { Checkbox } from 'antd'
 import { useDebounce } from './../../helpers/hooks/useDebounce'
 import Filter from '../../components/Filter/Filter'
+import styles from './styles.module.css'
 
 const Main = () => {
-  const [displayMode, setDisplayMode] = useState('name')
+  const [isActive, setIsActive] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [limitPage, setLimitPage] = useState(10)
@@ -22,40 +23,51 @@ const Main = () => {
   const [keywords, setKeywords] = useState('')
   const debounceKeywords = useDebounce(keywords, 1000)
 
-  useEffect(() => {
-    const getAllFilms = async () => {
-      try {
-        setIsLoading(true)
-        const response = await getFilms(currentPage, limitPage, { ...filters })
-        setAllFilms(response?.docs)
-        setTotalPages(response?.pages)
-        setIsLoading(false)
-      } catch (error) {
-        console.log(error)
-        setIsLoading(false)
-      }
+  const getAllFilms = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const response = await getFilms(currentPage, limitPage, { ...filters })
+      setAllFilms(response?.docs)
+      setTotalPages(response?.pages)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false)
     }
-    getAllFilms()
   }, [currentPage, limitPage, filters])
 
-  useEffect(() => {
-    const getSearchedMovies = async () => {
-      try {
-        setIsLoading(true)
-        const response = await getSearchedFilms(
-          currentPage,
-          limitPage,
-          debounceKeywords
-        )
-        setAllFilms(response.docs)
-        setIsLoading(false)
-      } catch (error) {
-        console.log(error)
-        setIsLoading(false)
-      }
+  const getSearchedMovies = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const response = await getSearchedFilms(
+        currentPage,
+        limitPage,
+        debounceKeywords
+      )
+      setAllFilms(response.docs)
+      setTotalPages(response?.pages)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false)
     }
-    getSearchedMovies()
   }, [currentPage, limitPage, debounceKeywords])
+
+  useEffect(() => {
+    if (!isActive) {
+      getSearchedMovies()
+    } else {
+      getAllFilms()
+    }
+  }, [
+    currentPage,
+    limitPage,
+    filters,
+    debounceKeywords,
+    isActive,
+    getAllFilms,
+    getSearchedMovies,
+  ])
 
   const handleChangePagination = (currentPage, pageSize) => {
     setCurrentPage(currentPage)
@@ -72,14 +84,35 @@ const Main = () => {
 
   return (
     <main>
-      <Filter onFilterChange={handleFilterChange} />
-      <Search onSearch={handleSearch} />
+      <div className={styles.main}>
+        <Checkbox
+          type='checkbox'
+          checked={isActive}
+          onChange={() => setIsActive(!isActive)}
+          className={styles.checkbox}
+        >
+          Переключить на поиск по фильтрам:
+        </Checkbox>
+        <Filter
+          onFilterChange={handleFilterChange}
+          isActive={isActive}
+          setCurrentPage={setCurrentPage}
+        />
+        <Search
+          onSearch={handleSearch}
+          isActive={isActive}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
       <FilmList
         allFilms={allFilms}
         isLoading={isLoading}
         currentPage={currentPage}
         totalPages={totalPages}
-        onChange={handleChangePagination}
+        handleChangePagination={handleChangePagination}
+        limitPage={limitPage}
+        setCurrentPage={setCurrentPage}
+        setLimitPage={setLimitPage}
       />
     </main>
   )
