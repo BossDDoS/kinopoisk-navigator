@@ -35,3 +35,15 @@ npm run dev
 2) Чтобы реализовать запуск проекта командой TOKEN='your api token' пришлось создать скрипт, который является оберткой
 над стандартным скриптом npm start. Поскольку в целях безопасности react игнорирут переменные окружения (исключение является eject).
 Скрипт start.js в корне прооект принимает TOKEN из строки консоли и записывает его в переменную окружения, которая используется в проекте.
+
+### Примеры запросов и ответов
+Запрос всех фильмов
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/1.png)
+Запрос фильмов на 4 странице с 20-ю элементами
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/2.png)
+Поиск по ключеовму слову
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/3.png)
+Выдача фильмов по фильтрам
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/4.png)
+Страница фильма
+![Screenshot1](https://github.com/BossDDoS/kinopoisk-navigator/blob/main/5.png)
