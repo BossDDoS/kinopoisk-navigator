@@ -1,0 +1,10 @@
+.container {
+  display: 'block';
+  width: '100px';
+  height: '100px';
+}
+
+.poster {
+  max-width: '100%';
+  max-height: '100%';
+}
