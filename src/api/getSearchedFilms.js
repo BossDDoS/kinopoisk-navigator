@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API_KEY = process.env.REACT_APP_API_KEY
-const BASE_URL = process.env.REACT_APP_BASE_API_URL
+const API_KEY = process.env.REACT_APP_TOKEN
+const BASE_URL = 'https://api.kinopoisk.dev/v1.4/'
 
 export const getSearchedFilms = async (page, limit, query) => {
   try {
